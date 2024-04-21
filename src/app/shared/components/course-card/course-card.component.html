@@ -1,14 +1,16 @@
+
+
 <div class="card" >
   <div class="card-body">
       <div class="tutor-info d-flex align-items-center">
           <div class="tutor-img">
-            <img [src]="course.image" alt="">
+            <img [src]="course.image ? course.image : defaultImagePath" alt="">
           </div>
           <div class="tutor-details">
-            <h5>{{course.tutor}}</h5>
-            <p>{{course.country}}</p>
-            <p>{{course.university}}</p>
-            <p>{{course.faculity}}</p>
+            <h5>{{course.touter.name}}</h5>
+            <p>{{course.country.name}}</p>
+            <p>{{course.university.name}}</p>
+            <p>{{course.faculity.name}}</p>
           </div>
       </div>
       <div class="course-info mt-4">
@@ -16,26 +18,38 @@
             <div class=" d-flex align-items-center">
               <div class="record">
                 <img src="assets/images/courses/ved.png" alt="">
-                <span>{{course.coursesNumber}}</span>
+                <span>5</span>
               </div>
               <div class="student">
                 <i class='bx bxs-user'></i>
-                <span>{{course.students}}</span>
+                <span>{{course.studentsCount}}</span>
               </div>
             </div>
 
               <div class="rating mt-1">
-                <rating class="rate" [(ngModel)]="course.rate" [max]="course.rate"  [readonly]="true" ></rating>
+                <!-- <rating class="rate" [(ngModel)]="course.rate !== 'NaN' ? course.rate : 0" [max]="5" [readonly]="true"></rating>
+                <span>{{ course.rate === 'NaN' ? 0 : course.rate }} Rating</span> <br> -->
+
+               <!-- <rating class="rate" [(ngModel)]="rate" [max]="rate"  [readonly]="true"></rating>
+                <span>{{rate}} Rating</span> <br> -->
+
+
+          <rating class="rate" [(ngModel)]="course.rate" [max]="course.rate"  [readonly]="true" ></rating>
                 <span>{{course.rate}} Rating</span> <br>
-                <span>{{course.reviewers}} reviewers</span>
+
+                <span>{{course.riviewers}} reviewers</span>
               </div>
           </div>
           <div class=" d-flex justify-content-center  mt-5">
             <div class="course-details">
-              <p class="course-name">{{course.courseName}}</p>
-              <p class="course-price">{{course.coursePrice}}</p>
-              <p class="professor-name">professor: {{course.professorName}}</p>
-              <p class="professor-languages">Languages: {{course.professorLanguages}}</p>
+              <p class="course-name text-center">{{course.name}}</p>
+              <p class="course-price text-center">{{course.coursePrice}}$/Hour</p>
+              <p class="professor-name text-center">professor: {{course.professorName}}</p>
+              <p class="professor-languages">Languages:
+                <span *ngFor="let language of course.touter.languages; let last = last">
+                  {{ language }}{{ last ? '' : ', ' }}
+                </span>
+              </p>
             </div>
           </div>
           <div class="d-flex justify-content-center mt-4">
@@ -48,3 +62,4 @@
 
   </div>
 </div>
+

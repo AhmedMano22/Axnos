@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { UserProfile } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,16 @@ export class TutorService {
 
   private percentSource = new BehaviorSubject<number>(0);
   percent$ = this.percentSource.asObservable();
+
+
+  private userDataSubject = new BehaviorSubject<UserProfile | null>(null);
+  userData$ = this.userDataSubject.asObservable();
+
+  updateUserData(userData: UserProfile) {
+    this.userDataSubject.next(userData);
+  }
+
+
   constructor() { }
 
   private getInitialIsTutorValue(): boolean {
@@ -25,4 +36,5 @@ export class TutorService {
   updatePercent(newPercent: number) {
     this.percentSource.next(newPercent);
   }
+
 }

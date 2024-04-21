@@ -33,7 +33,6 @@ export interface SignupCredentials {
 export interface UserProfile {
   firstName: string;
   lastName: string;
-  email: string;
   universityId: string | null;
   countryId: string | null;
   facultyId: string | null;

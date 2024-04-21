@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { CountryInfo, Faculty, University } from '../interfaces/models';
+import { CountryInfo, Course, Faculty, University } from '../interfaces/models';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,13 +34,28 @@ export class ApiService {
     return this._HttpClient.get<University[]>(this.url + `/Universities/${CountryID}`);
   }
 
- /* Faculties */
- getAllFaculities() {
-  return this._HttpClient.get<Faculty[]>(this.url + '/Faculty');
-}
+  /* Faculties */
+  getAllFaculities() {
+    return this._HttpClient.get<Faculty[]>(this.url + '/Faculty');
+  }
   getFaculityByUnivesityID(universityID:any) {
     return this._HttpClient.get<Faculty[]>(this.url + `/Faculty/${universityID}`);
   }
 
+ /* cources */
+
+ /* search cource */
+  // SearchCourse(credintials) {
+  //   return this._HttpClient.get<Course[]>(this.url + `/Courses/Search`);
+  // }
+  // searchCourses(searchParams: any): Observable<Course[]> {
+  //   return this._HttpClient.get<Course[]>(this.url + '/Courses/Search');
+  // }
+  searchCourses(searchParams: any): Observable<Course[]> {
+    return this._HttpClient.post<Course[]>(`${this.url}/Courses/Search`, searchParams);
+  }
+  getAllCourses() {
+    return this._HttpClient.get<Course[]>(this.url + '/Courses/GetAll');
+  }
 
 }

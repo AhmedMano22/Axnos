@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 export class DashboardComponent {
   percentComplete: number = 0;
   isTutor:boolean = false;
+
   constructor(private tutorService: TutorService){
     this.tutorService.isTutor$.subscribe(isTutor => {
       this.isTutor = isTutor;

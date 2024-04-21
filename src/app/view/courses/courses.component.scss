@@ -67,7 +67,13 @@
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
 }
-
+  .disabled {
+    background-color: #cbc3c3;
+    cursor: not-allowed;
+  }
+  .no-items{
+    font-size: 15px;
+  }
  }
 
 

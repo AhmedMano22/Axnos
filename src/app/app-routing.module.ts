@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/Guards/auth.guard';
 
 const routes: Routes = [
+
   {
     path: '',
     redirectTo: '',

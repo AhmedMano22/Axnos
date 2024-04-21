@@ -1,51 +1,57 @@
-
- <section class="mt-4">
+<section class="mt-4">
   <div class="container">
-    <form [formGroup]="myForm" class="form"  (ngSubmit)="onFormSubmit()" >
-         <div class="row justify-content-center">
+    <form [formGroup]="myForm" class="form" (ngSubmit)="onFormSubmit()">
+      <div class="row justify-content-center">
 
-                <div class="element mb-4">
-                  <div class="form-group has-float-label ">
-                        <p-dropdown formControlName="country" class="drop"
-                        [options]="Countries" name="from" [(ngModel)]="selectedCountry"
-                        optionLabel="name" optionValue="id" [showClear]="true"
-                        (onChange)="onCountryChange($event)"
-                        placeholder="Select Country"></p-dropdown>
-                        <label class="label">Country name</label>
-                  </div>
+        <div class="element mb-4">
+          <div class="form-group has-float-label ">
+            <p-dropdown formControlName="CountryId" class="drop" [options]="Countries" name="from"
+              [(ngModel)]="selectedCountry" optionLabel="name" optionValue="id" [showClear]="true"
+              (onChange)="onCountryChange($event)" placeholder="Select Country"></p-dropdown>
+            <label class="label">Country name</label>
+          </div>
 
-                </div>
-                <div class="element mb-4">
-                  <div class="form-group has-float-label">
-                        <p-dropdown formControlName="university" class="drop"
-                        [options]="Universites" name="from" [(ngModel)]="selectedUniversity"
-                        optionLabel="name" optionValue="universityId" [showClear]="true"
-                        (onChange)="onUniversityChange($event)"
-                        placeholder="Select University"></p-dropdown>
-                        <label class="label">University name</label>
-                  </div>
-
-                </div>
-                <div class="element mb-4">
-                  <div class="form-group has-float-label">
-                      <p-dropdown formControlName="faculity" class="drop"
-                      [options]="Faculties" name="from" [(ngModel)]="selectedFaculity"
-                      optionLabel="name" optionValue="faculityId" [showClear]="true"
-                      placeholder="Select Faculity"></p-dropdown>
-                      <label class="label">Faculity name</label>
-                  </div>
-                </div>
-                <div class="element mb-4">
-                  <div class="form-group has-float-label h-100">
-
-                      <input pInputText id="Subject Name" class="subjectname" formControlName="subject"  placeholder="Subject name"  />
-                      <label for="username" class="label" >Subject name</label>
-                  </div>
-                </div>
-                <div class="element mb-4 ">
-                    <button class="search" type="submit">Search</button>
-                </div>
         </div>
+        <div class="element mb-4">
+          <div class="form-group has-float-label">
+            <p-dropdown formControlName="UniversityId" class="drop" [options]="Universites" name="from"
+              [(ngModel)]="selectedUniversity" optionLabel="name" optionValue="universityId" [showClear]="true"
+              (onChange)="onUniversityChange($event)" placeholder="Select University"></p-dropdown>
+            <label class="label">University name</label>
+          </div>
+
+        </div>
+        <div class="element mb-4">
+          <div class="form-group has-float-label">
+            <p-dropdown formControlName="FaculityId" class="drop" [options]="Faculties" name="from"
+              [(ngModel)]="selectedFaculity" optionLabel="name" optionValue="faculityId" [showClear]="true"
+              placeholder="Select Faculity"></p-dropdown>
+            <label class="label">Faculity name</label>
+          </div>
+        </div>
+        <div class="element mb-4">
+          <div class="form-group has-float-label h-100">
+
+            <input pInputText id="Subject Name" class="subjectname" formControlName="Name" placeholder="Subject name" />
+            <label for="username" class="label">Subject name</label>
+          </div>
+        </div>
+        <div class="element mb-4 ">
+          <!-- <button class="search" type="submit">Search</button> -->
+          <button class="search" type="submit"
+                  [disabled]="!myForm.get('CountryId')?.value &&
+                              !myForm.get('UniversityId')?.value &&
+                              !myForm.get('FaculityId')?.value &&
+                              !myForm.get('Name')?.value"
+                              [ngClass]="{'disabled':
+                              !myForm.get('CountryId')?.value &&
+                              !myForm.get('UniversityId')?.value &&
+                              !myForm.get('FaculityId')?.value &&
+                              !myForm.get('Name')?.value}">Search
+           </button>
+
+        </div>
+      </div>
     </form>
 
 
@@ -55,11 +61,16 @@
 
 <section class="pb-4 pt-5">
   <div class="container ">
-      <div class="row">
-          <div class="col-lg-4 col-md-6 col-12" *ngFor="let course of courses">
-           <app-course-card [course]="course"></app-course-card>
-          </div>
+    <div class="row" *ngIf="courses.length > 0 ">
+      <div class="col-lg-4 col-md-6 col-12" *ngFor="let course of courses">
+        <app-course-card [course]="course"></app-course-card>
       </div>
+    </div>
+    <div class="row" *ngIf="courses.length == 0 ">
+      <div class="col-12">
+        <p class="text-center no-items">There are no courses currently</p>
+      </div>
+    </div>
   </div>
 
 </section>

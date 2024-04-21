@@ -42,7 +42,7 @@
 }
   .error {
     color: red;
-    font-size: 16px;
+    font-size: 11px;
   }
   .invalid {
     border: 1px solid red !important;
@@ -84,6 +84,9 @@
     color: $wight-color;
     margin-left: 5px;
 
+  }
+  .disabled {
+    background-color: gainsboro;
   }
   @media (max-width:500px) {
     .cancel ,.complete{

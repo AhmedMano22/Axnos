@@ -3,6 +3,7 @@ import { UserProfile } from 'src/app/core/interfaces/user';
 import { ApiService } from 'src/app/core/services/api.service';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { GenericService } from 'src/app/core/services/generic.service';
+import { TutorService } from 'src/app/core/services/tutor.service';
 
 @Component({
   selector: 'user-profile',
@@ -10,7 +11,7 @@ import { GenericService } from 'src/app/core/services/generic.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent {
-  public  path="assets/images/user/avatar-05.png";
+  public  path="assets/images/default.jpg";
  // User: any;
    notifications = [
     {
@@ -43,7 +44,6 @@ export class UserProfileComponent {
   User: UserProfile = {
     firstName: '',
     lastName: '',
-    email: '',
     universityId: null,
     countryId: null,
     facultyId: null,
@@ -55,14 +55,27 @@ export class UserProfileComponent {
     bio: null,
     image: null
   };
-  constructor(private authService: AuthenticationService ,  private _GeneralService: GenericService , private apiSer:ApiService){}
+  constructor(private authService: AuthenticationService ,
+              private _GeneralService: GenericService ,
+              private apiSer:ApiService,
+            private tutorService:TutorService
+            )
+  {
+    this.tutorService.userData$.subscribe(userData => {
+      if (userData) {
+        console.log("userData",userData);
+
+        this.User = userData;
+      }
+    });
+
+  }
   ngOnInit(): void {
     this.apiSer.getprofile().subscribe((res:any)=>{
 
       this.User = {
         firstName: res.firstName || res.given_name,
         lastName: res.lastName || res.family_name,
-        email: res.email || '',
         universityId: res.universityId || null,
         countryId: res.countryId || null,
         facultyId: res.facultyId || null,
@@ -72,14 +85,12 @@ export class UserProfileComponent {
         languages: res.languages || null,
         currency: res.currency || null,
         bio: res.bio || null,
-        image: res.image || this.path
+        // image: (res.image && res.image !== "string") ? res.image : this.path
+        image: (res.image && res.image !== "string") ? `data:image/png;base64,`+ res.image  : this.path
+
       };
-      // this.User = {
-      //   firstName: res.firstName || res.given_name,
-      //   lastName: res.lastName || res.family_name,
-      //   email: res.emailAddress,
-      //   image: res.image || this.path
-      // };
+      // image: res.image || this.path
+
     })
     // this.authService.user$.subscribe(user => {
     //   console.log("new user data", user);
@@ -102,5 +113,8 @@ export class UserProfileComponent {
 
   LogOut(){
    this.authService.logout()
+  }
+  handleImageError() {
+    this.User.image = this.path;
   }
 }

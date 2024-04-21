@@ -25,7 +25,7 @@
     <div class="profile-img "  type="button" data-bs-toggle="dropdown" aria-expanded="false">
       <!-- <img class="rounded-circle" [src]="User?.image"  onerror="this.src=path"
       width="50" height="50" loading="lazy" alt=""> -->
-      <img class="rounded-circle" [src]="User.image"
+      <img class="rounded-circle" [src]="User.image" (error)="handleImageError()"
           width="50" height="50" loading="lazy" alt="">
     </div>
     <ul class="dropdown-menu dropmenu" style="position: absolute !important;">
@@ -34,6 +34,7 @@
 
                <img class="rounded-circle" [src]="User.image"
                width="50" height="50"
+               (error)="handleImageError()"
                  loading="lazy" alt="">
 
           <span class="user-name">{{User.firstName}} {{User.lastName}}</span>
